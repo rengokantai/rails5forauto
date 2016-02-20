@@ -141,7 +141,14 @@ group by
 ```
 Album.group(:release_year)
 ```
-
-
+pluck - select(return relations)
+```
+Album.where(release_year: 1960..1969).pluck(:name)
+Album.where(release_year: 1960..1969).select(:name)
+```
+first and create
+```
+test = Album.where(name: 'Test').first_or_create
+```
 
 
