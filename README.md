@@ -275,3 +275,30 @@ end
 ```
 
 
+Bundler:  
+in Gemfile.lock,ex
+```
+'rails','5.0.0'
+```
+run
+```
+bundle update rails
+```
+
+check outgated gems
+```
+bundle outdated
+```
+
+more? commands
+```
+bundle exec rake db:migrate
+```
+
+install correct versions
+```
+bundle install --binstubs
+```
+
+
+
