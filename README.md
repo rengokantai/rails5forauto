@@ -151,4 +151,127 @@ first and create
 test = Album.where(name: 'Test').first_or_create
 ```
 
+==
+
+
+Redirect:
+```
+rails generate controller Game ping pong
+```
+
+with flash message.
+```rb
+class GameController < ApplicationController
+def ping
+redirect_to game_pong_path, notice: 'Ping-Pong!'  #flash[:notice] = 'Ping-Pong!'  
+end
+def pong
+end
+end
+```
+
+
+here,it will print ping-pong  
+app/views/layouts/application.html.erb
+```
+<body>
+<% flash.each do |name, message| %>
+<p>
+<i><%= "#{name}: #{message}" %></i>
+</p>
+<% end %>
+<%= yield %>
+</body>
+</html>
+```
+
+scaffold
+```
+rails generate scaffold product name 'price:decimal{7,2}'
+```
+
+
+
+
+
+
+Routes:  
+
+start:
+```
+rails generate controller Home index ping pong
+```
+
+by default,
+```
+home_pong GET /home/pong(.:format) home#pong
+```
+
+We can rename using as:
+```
+get "home/pong", as: 'different_name'
+```
+Then
+```
+different_name GET /home/pong(.:format) home#pong
+```
+using to to deine other destination
+```
+get "home/applepie", to: "home#ping"
+```
+
+
+
+constrants: for date type attribute
+```rb
+Blog::Application.routes.draw do
+resources :posts
+get ':year(/:month(/:day))', to: 'posts#index', constraints: { year:
+/\d{4}/, month: /\d{2}/, day: /\d{2}/ }
+end
+```
+
+
+route->resources only,except
+```rb
+Rails.application.routes.draw do
+resources :products, only: [:index, :show]
+end
+```
+
+
+```rb
+Blog::Application.routes.draw do
+resources :posts, except: [:index, :show]
+end
+```
+
+
+nested route ex:
+```
+rails generate scaffold comment post_id:integer content
+rails db:migrate
+```
+
+and set a association
+```rb
+class Post < ActiveRecord::Base
+has_many :comments
+end
+```
+```rb
+class Comment < ActiveRecord::Base
+belongs_to :post
+end
+```
+
+change routes.rb
+```rb
+Blog::Application.routes.draw do
+resources :posts do
+resources :comments
+end
+end
+```
+
 
