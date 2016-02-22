@@ -300,5 +300,34 @@ install correct versions
 bundle install --binstubs
 ```
 
+besides form_for tag, also form_tag tag.
+```rb
+<%= form_tag("/search", method: "get") do %>
+<%= label_tag(:q, "Search for:") %>
+<%= text_field_tag(:q) %>
+<%= submit_tag("Search") %>
+<% end %>
+```
+
+test
+```
+rails generate scaffold user login_name first_name last_name birthday:date
+```
+
+make file test/fixtures/users.yml:  Note: plural
+```yaml
+one:
+  login_name: MyString
+  first_name: MyString
+  last_name: MyString
+  birthday: 2015-12-27
+two:
+  login_name: MyString
+  first_name: MyString
+  last_name: MyString
+  birthday: 2015-12-27
+```
+
+
 
 
